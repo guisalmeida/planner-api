@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Getter
 @Setter
@@ -15,8 +17,8 @@ import lombok.Setter;
 @Table(name = "participants")
 public class Participant {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private UUID id;
 
     @Column(name = "is_confirmed", nullable = false)
     private boolean isConfirmed;
@@ -27,7 +29,14 @@ public class Participant {
     @Column(nullable = false)
     private String email;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "trip_id", nullable = false)
     private Trip trip;
+
+    public Participant(String email, Trip trip) {
+        this.email = email;
+        this.trip = trip;
+        this.isConfirmed = false;
+        this.name = "";
+    }
 }
