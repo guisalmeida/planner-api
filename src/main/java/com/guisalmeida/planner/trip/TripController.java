@@ -1,5 +1,6 @@
 package com.guisalmeida.planner.trip;
 
+import com.guisalmeida.planner.activities.*;
 import com.guisalmeida.planner.participant.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,9 @@ public class TripController {
 
     @Autowired
     private TripRepository tripRepository;
+
+    @Autowired
+    private ActivityService activityService;
 
     @PostMapping
     public ResponseEntity<TripCreateResponse> createTrip(@RequestBody TripRequestPayload payload) {
@@ -87,6 +91,26 @@ public class TripController {
             return ResponseEntity.ok(participantResponse);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/{tripId}/activities")
+    public ResponseEntity<ActivityResponse> registerActivity(@PathVariable UUID tripId, @RequestBody ActivityRequestPayload payload) {
+        Optional<Trip> trip = this.tripRepository.findById(tripId);
+
+        if (trip.isPresent()) {
+            Trip updatedTrip = trip.get();
+
+            ActivityResponse activityResponse = this.activityService.registerActivity(payload, updatedTrip);
+
+            return ResponseEntity.ok(activityResponse);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{tripId}/activities")
+    public ResponseEntity<List<ActivityData>> getActivities(@PathVariable UUID tripId) {
+        List<ActivityData> activitiesList = this.activityService.getAllActivitiesFromId(tripId);
+        return ResponseEntity.ok(activitiesList);
     }
 
     @GetMapping("/{tripId}/participants")
