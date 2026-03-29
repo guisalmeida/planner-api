@@ -1,6 +1,6 @@
 package com.guisalmeida.planner.trip;
 
-import com.guisalmeida.planner.activities.*;
+import com.guisalmeida.planner.activity.*;
 import com.guisalmeida.planner.participant.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

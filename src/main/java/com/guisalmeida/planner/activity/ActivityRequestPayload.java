@@ -1,6 +1,4 @@
-package com.guisalmeida.planner.activities;
-
-import java.util.UUID;
+package com.guisalmeida.planner.activity;
 
 public record ActivityRequestPayload(String title, String occurs_at) {
 }

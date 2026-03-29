@@ -1,4 +1,4 @@
-package com.guisalmeida.planner.activities;
+package com.guisalmeida.planner.activity;
 
 import java.util.UUID;
 
