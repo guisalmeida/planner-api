@@ -1,4 +1,3 @@
-HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -31,3 +30,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore local H2 database files
+/data/
+/h2_db_files/
+*.db
+
+.env

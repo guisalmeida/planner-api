@@ -13,3 +13,4 @@ Planner is an application to help users planning their trips by inviting others,
 - ### Extract trip core logic into a Service class
 - ### Map application exceptions
   - With personalized error handling 
+- ### Migrate to postgres
