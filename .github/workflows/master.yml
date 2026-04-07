@@ -26,11 +26,19 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build docker image
-        run: docker build -t guisalmeida/planner.api:${{ steps.generate_sha.outputs.sha }} .
+#      - name: Build docker image
+#        run: docker build -t guisalmeida/planner.api:${{ steps.generate_sha.outputs.sha }} .
+#
+#      - name: Push image
+#        run: |
+#          docker push guisalmeida/planner.api:${{ steps.generate_sha.outputs.sha }}
+#          docker tag guisalmeida/planner.api:${{ steps.generate_sha.outputs.sha }} guisalmeida/planner.api:latest
+#          docker push guisalmeida/planner.api:latest
 
-      - name: Push image
-        run: |
-          docker push guisalmeida/planner.api:${{ steps.generate_sha.outputs.sha }}
-          docker tag guisalmeida/planner.api:${{ steps.generate_sha.outputs.sha }} guisalmeida/planner.api:latest
-          docker push guisalmeida/planner.api:latest
+      - name: Build & Push
+        uses: docker/build-push-action@v7
+        with:
+          push: true
+          tags: |
+            guisalmeida/planner.api:${{ steps.generate_sha.outputs.sha }}
+            guisalmeida/planner.api:latest
