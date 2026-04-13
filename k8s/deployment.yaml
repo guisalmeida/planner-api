@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: journey-deployment
+  labels:
+    app: journey
+
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: journey
+  template:
+    metadata:
+      labels:
+        app: journey
+    spec:
+      containers:
+        - name: api-journey
+          image: guisalmeida/planner.api:abafd4c
+          env:
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-connection
+                  key: db_user
+
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 300m
+              memory: 256Mi
